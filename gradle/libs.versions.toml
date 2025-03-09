@@ -1,0 +1,22 @@
+[versions]
+agp = "8.7.3"
+material = "1.12.0"
+activity = "1.10.0"
+palette = "1.0.0"
+
+gson = "2.11.0"
+okhttp = "5.0.0-alpha.14"
+picasso = "3.0.0-alpha06"
+
+[libraries]
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+palette = { group = "androidx.palette", name = "palette", version.ref = "palette" }
+
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+picasso = { group = "com.squareup.picasso3", name = "picasso", version.ref = "picasso" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+
