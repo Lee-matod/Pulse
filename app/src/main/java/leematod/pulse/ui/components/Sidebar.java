@@ -35,6 +35,7 @@ public class Sidebar extends RelativeLayout implements Styleable {
     private boolean isAnimating = false;
     private @Nullable ImageView icon;
     private @Nullable View view;
+    private int activeTab = -1;
 
     public Sidebar(@NonNull Context context) {
         super(context);
@@ -60,14 +61,12 @@ public class Sidebar extends RelativeLayout implements Styleable {
         Tab tab = new Tab(context);
         tab.setText(name);
         tab.setIcon(icon);
-        tab.index = index;
         tab.setOnClickListener(v -> this.setActiveTab(index));
         tab.setY(pixels(TAB_SEPARATION) * (index + 1) + pixels(WIDTH));
         tab.setPaddingRelative(0, 0, 0, pixels(8));
         tab.setRotation(-90);
 
         this.addView(tab, new LayoutParams(-1, -2));
-        this.setActiveTab(index);
         return index;
     }
 
@@ -108,32 +107,30 @@ public class Sidebar extends RelativeLayout implements Styleable {
 
         this.isAnimating = true;
         Tab selectedTab = null;
-        int activeTab = -1;
-        // Update sidebar state and fetch relevant tab IDs if a (new) tab was selected
+        int selectedTabIndex = -1;
+        int tabIndex = 0;
         for (int i = 0; i < this.getChildCount(); i++) {
             View view = this.getChildAt(i);
             if (!(view instanceof Tab tab)) {
                 continue;
             }
-            if (tab.image.getTranslationY() >= 0) {
-                activeTab = tab.index;
-            }
-            if (tab.index == index) {
+            if (tabIndex == index) {
                 selectedTab = tab;
+                selectedTabIndex = tabIndex;
                 tab.text.setTextColor(ColorPalette.current.text);
                 tab.image.animate().translationY(0).start();
             } else {
                 tab.text.setTextColor(ColorPalette.current.textDisabled);
                 tab.image.animate().translationY(-pixels(24)).start();
             }
+            tabIndex++;
         }
 
-        // If possible, try to add view to parent layout
-        if (selectedTab == null || selectedTab.index == activeTab || this.callback == null) {
+        if (selectedTab == null || selectedTabIndex == this.activeTab || this.callback == null) {
             this.isAnimating = false;
             return;
         }
-        View newView = this.callback.apply(selectedTab.index, (String) selectedTab.text.getText());
+        View newView = this.callback.apply(selectedTabIndex, (String) selectedTab.text.getText());
         if (newView == null) {
             this.isAnimating = false;
             return;
@@ -153,13 +150,14 @@ public class Sidebar extends RelativeLayout implements Styleable {
         layoutParams.addRule(END_OF, this.getId());
         parent.addView(newView, layoutParams);
 
-        if (activeTab < 0 || this.view == null) {
+        if (this.activeTab < 0 || this.view == null) {
             this.view = newView;
             this.isAnimating = false;
+            this.activeTab = selectedTabIndex;
             return;
         }
 
-        int childDirection = activeTab > selectedTab.index ? -1 : 1;
+        int childDirection = this.activeTab > selectedTabIndex ? -1 : 1;
         int oldChildDirection = childDirection * -1;
 
         newView.setY(height * childDirection);
@@ -175,6 +173,7 @@ public class Sidebar extends RelativeLayout implements Styleable {
                             this.isAnimating = false;
                         })
                 .start();
+        this.activeTab = selectedTabIndex;
     }
 
     @Override
@@ -188,7 +187,6 @@ public class Sidebar extends RelativeLayout implements Styleable {
     protected static class Tab extends RelativeLayout implements Styleable {
         public final @NonNull TextView text;
         public final @NonNull ImageView image;
-        public int index;
 
         public Tab(@NonNull Context context) {
             super(context);
