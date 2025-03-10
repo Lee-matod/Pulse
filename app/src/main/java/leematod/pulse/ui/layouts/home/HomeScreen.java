@@ -45,9 +45,8 @@ public class HomeScreen extends ContainerizedLayout {
 
         this.adapter = new ContainerAdapter();
         this.adapter.setStartupDummies(4);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         this.container = new RecyclerView(context);
-        this.container.setLayoutManager(layoutManager);
+        this.container.setLayoutManager(new LinearLayoutManager(context));
         this.container.setAdapter(this.adapter);
 
         this.addView(this.container);
