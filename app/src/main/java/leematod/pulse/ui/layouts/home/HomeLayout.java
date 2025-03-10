@@ -18,7 +18,7 @@ import leematod.pulse.ui.components.PrimaryTextView;
 import leematod.pulse.ui.components.Sidebar;
 import leematod.pulse.ui.layouts.Layout;
 
-public class HomeLayout extends Layout implements Styleable {
+public class HomeLayout extends Layout {
     public static final int TITLE_SIZE = 48;
 
     public HomeLayout(@NonNull Context context) {
@@ -32,11 +32,6 @@ public class HomeLayout extends Layout implements Styleable {
         this.sidebar.setIcon(R.drawable.settings);
 
         this.sidebar.setActiveTab(0);
-    }
-
-    @Override
-    public void setPalette(@NonNull ColorPalette palette) {
-        this.setBackgroundColor(palette.background);
     }
 
     @Nullable
