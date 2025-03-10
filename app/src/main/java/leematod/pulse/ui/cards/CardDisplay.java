@@ -118,6 +118,7 @@ public class CardDisplay extends RecyclerView {
             for (Item<?> item : items) {
                 Function<Context, ItemCard> cardConstructor = this.typeToCard(item);
                 ItemCard card = ensureId(cardConstructor.apply(view.getContext()));
+                card.setOnClickListener((v) -> card.onClicked(v, item));
 
                 if (!CardDisplay.this.isUnique) {
                     card.small();

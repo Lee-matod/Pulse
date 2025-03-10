@@ -16,6 +16,7 @@ import com.google.android.material.shape.RelativeCornerSize;
 import com.google.android.material.shape.ShapeAppearanceModel;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
+import leematod.pulse.models.Item;
 import leematod.pulse.ui.components.PrimaryTextView;
 import leematod.pulse.ui.components.SecondaryTextView;
 
@@ -54,11 +55,9 @@ public abstract class ItemCard extends RelativeLayout {
                 this.thumbnailParams(
                         new LayoutParams(
                                 pixels(THUMBNAIL_DIMENSIONS), pixels(THUMBNAIL_DIMENSIONS))));
-
-        this.setOnClickListener(this::onClicked);
     }
 
-    protected void onClicked(@NonNull View view) {}
+    public void onClicked(@NonNull View view, @NonNull Item<?> item) {}
 
     // TODO: actual implementations in subclasses
     @NonNull
