@@ -160,12 +160,12 @@ public class HTTPClient {
             return null;
         }
 
-        if (parent.musicPlaylistShelfRenderer == null) {
+        if (parent.musicShelfRenderer == null) {
             return null;
         }
 
         AlbumItem item = header.apply(AlbumItem::new).populate(header);
-        item.songs.addAll(parent.musicPlaylistShelfRenderer.mapSongs());
+        item.songs.addAll(parent.musicShelfRenderer.mapSongs());
         return item;
     }
 
