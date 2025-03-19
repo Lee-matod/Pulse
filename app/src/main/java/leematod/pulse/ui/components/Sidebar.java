@@ -52,6 +52,11 @@ public class Sidebar extends RelativeLayout implements Styleable {
         this.callback = callback;
     }
 
+    @Nullable
+    public View getActiveTabLayout() {
+        return this.view;
+    }
+
     @CanIgnoreReturnValue
     public int addTab(@StringRes int name, @DrawableRes int icon) {
         Context context = this.getContext();
