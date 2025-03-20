@@ -118,8 +118,9 @@ public class HTTPClient {
                 "contents.twoColumnBrowseResultsRenderer(secondaryContents.sectionListRenderer."
                         + "contents.musicShelfRenderer.contents."
                         + Innertube.MASK_MUSIC_RESPONSIVE_LIST_ITEM_RENDERER
-                        + ",tabs.tabRenderer.content.sectionListRenderer.contents."
+                        + ",tabs.tabRenderer.content.sectionListRenderer.contents("
                         + Innertube.MASK_MUSIC_RESPONSIVE_HEADER_RENDERER
+                        + ",musicResponsiveHeaderRenderer(straplineTextOne,straplineThumbnail))"
                         + "),trackingParams");
 
         BrowseResponse response;
