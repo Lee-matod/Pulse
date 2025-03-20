@@ -16,7 +16,7 @@ public final class MusicResponsiveHeaderRenderer {
     public HeaderDescription description;
     public @Nullable HeaderFacepile facepile;
     public @Nullable Runs straplineTextOne;
-    public @Nullable ThumbnailRenderer straplineThumbnailRenderer;
+    public @Nullable ThumbnailRenderer straplineThumbnail;
 
     public <I extends Item<NavigationEndpoint.Browse>> I apply(
             @NonNull Item.DefaultConstructor<I, NavigationEndpoint.Browse> constructor) {

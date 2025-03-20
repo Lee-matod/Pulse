@@ -78,9 +78,9 @@ public class AlbumItem extends Item<NavigationEndpoint.Browse> {
                 clickTrackingParams = artistRun.navigationEndpoint.clickTrackingParams;
             }
             Thumbnail artistThumbnail = null;
-            if (header.straplineThumbnailRenderer != null) {
+            if (header.straplineThumbnail != null) {
                 artistThumbnail =
-                        header.straplineThumbnailRenderer.musicThumbnailRenderer.thumbnail
+                        header.straplineThumbnail.musicThumbnailRenderer.thumbnail
                                 .thumbnails.get(0);
             }
 
