@@ -12,12 +12,12 @@ public class Innertube extends Route {
     public static final String BASE = "https://music.youtube.com/youtubei/v1";
     public static final String MASK_MUSIC_RESPONSIVE_LIST_ITEM_RENDERER =
             "musicResponsiveListItemRenderer(trackingParams,flexColumns,fixedColumns,thumbnail,"
-                    + "navigationEndpoint)";
+                    + "navigationEndpoint,index)";
     public static final String MASK_MUSIC_TWO_ROW_ITEM_RENDERER =
             "musicTwoRowItemRenderer(thumbnailRenderer,title,subtitle,navigationEndpoint)";
     public static final String MASK_MUSIC_RESPONSIVE_HEADER_RENDERER =
             "musicResponsiveHeaderRenderer(thumbnail,title,subtitle,trackingParams,description,"
-                    + "secondSubtitle,facepile)";
+                    + "secondSubtitle,facepile,straplineTextOne,straplineThumbnail)";
     protected final Object body;
 
     public Innertube(@NonNull String endpoint, @NonNull Object body) {

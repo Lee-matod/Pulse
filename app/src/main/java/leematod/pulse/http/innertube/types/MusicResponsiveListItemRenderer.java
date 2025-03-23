@@ -9,6 +9,7 @@ import java.util.List;
 public final class MusicResponsiveListItemRenderer {
     public @Nullable List<FixedColumn> fixedColumns;
     public @Nullable List<FlexColumn> flexColumns;
+    public @Nullable Runs index;
     public ThumbnailRenderer thumbnail;
     public TrackingData.TrackingParams trackingParams;
 
