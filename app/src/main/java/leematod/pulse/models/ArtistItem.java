@@ -83,8 +83,8 @@ public class ArtistItem extends Item<NavigationEndpoint.Browse> {
     @NonNull
     public ArtistItem populate(@NonNull MusicImmersiveHeaderRenderer renderer) {
         this.description = renderer.description.getText();
-        this.playButton = renderer.playButton.navigationEndpoint.watchEndpoint;
-        this.startRadio = renderer.startRadioButton.navigationEndpoint.watchEndpoint;
+        this.playButton = renderer.playButton.buttonRenderer.navigationEndpoint.watchEndpoint;
+        this.startRadio = renderer.startRadioButton.buttonRenderer.navigationEndpoint.watchEndpoint;
         return this;
     }
 
