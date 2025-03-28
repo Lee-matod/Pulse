@@ -11,20 +11,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 
-import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Pressable extends Drawable {
-    public static final int CIRCLE = 0;
-    public static final int HORIZONTAL = 1;
-    public static final int VERTICAL = 2;
-    public static final int CENTER = 10;
-    public static final int TOUCH = 11;
     private final @NonNull Paint paint;
     private final @NonNull Rect bounds;
-    protected @IntRange(from = CIRCLE, to = VERTICAL) int pressType = CIRCLE;
-    protected @IntRange(from = CENTER, to = TOUCH) int originType = CENTER;
+    protected ExpansionType expansionType = ExpansionType.CIRCLE;
+    protected OriginType originType = OriginType.CENTER;
     protected int borderRadius = 30;
     protected int speed = 150;
     private @Nullable ValueAnimator animator;
@@ -36,11 +30,20 @@ public class Pressable extends Drawable {
         this.paint = new Paint();
         this.paint.setColor(accent);
         this.paint.setAntiAlias(true);
-        this.paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        this.isLayered(false);
 
         this.bounds = new Rect();
-        this.setAlpha(50);
+        this.setAlpha(64);
         this.setActive(false);
+    }
+
+    public void isLayered() {
+        this.isLayered(true);
+    }
+
+    public void isLayered(boolean layered) {
+        this.paint.setXfermode(
+                new PorterDuffXfermode(layered ? PorterDuff.Mode.DST_OUT : PorterDuff.Mode.SRC_IN));
     }
 
     @Override
@@ -86,8 +89,8 @@ public class Pressable extends Drawable {
             int width = this.bounds.width();
             int height = this.bounds.height();
 
-            int originX = this.originType == TOUCH ? this.touchX : this.bounds.centerX();
-            int originY = this.originType == TOUCH ? this.touchY : this.bounds.centerY();
+            int originX = this.originType == OriginType.CLICK ? this.touchX : this.bounds.centerX();
+            int originY = this.originType == OriginType.CLICK ? this.touchY : this.bounds.centerY();
 
             float left = Math.max(0, originX - value * width);
             float top = Math.max(0, originY - value * height);
@@ -95,7 +98,7 @@ public class Pressable extends Drawable {
             float bottom = Math.min(height, originY + value * height);
 
             RectF rectF =
-                    switch (this.pressType) {
+                    switch (this.expansionType) {
                         case HORIZONTAL -> new RectF(left, 0, right, this.bounds.bottom);
                         case VERTICAL -> new RectF(0, top, this.bounds.left, bottom);
                         default -> new RectF(left, top, right, bottom);
@@ -128,11 +131,11 @@ public class Pressable extends Drawable {
         this.borderRadius = borderRadius;
     }
 
-    public void setPressType(@IntRange(from = CIRCLE, to = VERTICAL) int value) {
-        this.pressType = value;
+    public void setExpansionType(ExpansionType value) {
+        this.expansionType = value;
     }
 
-    public void setOriginType(@IntRange(from = CENTER, to = TOUCH) int value) {
+    public void setAnimationOrigin(OriginType value) {
         this.originType = value;
     }
 
@@ -156,5 +159,16 @@ public class Pressable extends Drawable {
         this.animator.setDuration(this.speed);
         this.animator.addUpdateListener((a) -> this.invalidateSelf());
         this.animator.start();
+    }
+
+    public enum ExpansionType {
+        CIRCLE,
+        HORIZONTAL,
+        VERTICAL
+    }
+
+    public enum OriginType {
+        CENTER,
+        CLICK
     }
 }
