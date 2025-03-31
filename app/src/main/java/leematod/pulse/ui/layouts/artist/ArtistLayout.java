@@ -15,7 +15,7 @@ public class ArtistLayout extends Layout {
 
     public ArtistLayout(Context context) {
         super(context);
-        this.sidebar.addTab(R.string.overview, R.drawable.sparkles);
+        this.sidebar.addTab(R.string.overview, R.drawable.person);
         this.sidebar.addTab(R.string.songs, R.drawable.music_library);
         this.sidebar.addTab(R.string.albums, R.drawable.album);
         this.sidebar.addTab(R.string.singles, R.drawable.album);
