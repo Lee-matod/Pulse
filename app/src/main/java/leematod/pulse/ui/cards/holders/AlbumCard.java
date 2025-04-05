@@ -4,13 +4,30 @@ import static leematod.pulse.Utils.pixels;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+
+import leematod.pulse.MainActivity;
+import leematod.pulse.models.Item;
+import leematod.pulse.ui.layouts.album.AlbumLayout;
 
 public class AlbumCard extends ItemCard {
     public AlbumCard(@NonNull Context context) {
         super(context);
         this.subtitle.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+    @Override
+    public void onClicked(@NonNull View view, @NonNull Item<?> item) {
+        String key = item.getKey();
+        if (key == null) {
+            return;
+        }
+        MainActivity activity = (MainActivity) this.getContext();
+        AlbumLayout layout = new AlbumLayout(activity);
+        activity.setContentView(layout);
+        layout.setAlbum(key);
     }
 
     @NonNull
