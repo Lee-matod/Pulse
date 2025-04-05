@@ -224,8 +224,8 @@ public class Sidebar extends RelativeLayout implements Styleable {
             this.image.setColorFilter(palette.text);
 
             Pressable drawable = new Pressable(palette.onAccent);
-            drawable.setPressType(Pressable.HORIZONTAL);
-            drawable.setOriginType(Pressable.TOUCH);
+            drawable.setExpansionType(Pressable.ExpansionType.HORIZONTAL);
+            drawable.setAnimationOrigin(Pressable.OriginType.CLICK);
             this.setBackground(drawable);
         }
     }
