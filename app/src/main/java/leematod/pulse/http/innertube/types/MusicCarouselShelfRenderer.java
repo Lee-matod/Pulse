@@ -17,12 +17,8 @@ public final class MusicCarouselShelfRenderer {
         public MusicCarouselShelfBasicHeaderRenderer musicCarouselShelfBasicHeaderRenderer;
 
         public static final class MusicCarouselShelfBasicHeaderRenderer {
-            public MoreContentButton moreContentButton;
+            public ButtonRenderer moreContentButton;
             public Runs title;
-
-            public static final class MoreContentButton {
-                public ButtonRenderer buttonRenderer;
-            }
         }
     }
 }
