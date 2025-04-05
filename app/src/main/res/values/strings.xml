@@ -7,6 +7,9 @@
     <string name="artists">Artists</string>
     <string name="albums">Albums</string>
 
+    <string name="playlist">Playlist</string>
+    <string name="related">Related</string>
+
     <string name="overview">Overview</string>
     <string name="singles">Singles</string>
 
