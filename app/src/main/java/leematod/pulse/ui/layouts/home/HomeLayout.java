@@ -4,6 +4,8 @@ import static leematod.pulse.Utils.ensureId;
 import static leematod.pulse.Utils.pixels;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,8 +15,6 @@ import androidx.annotation.Nullable;
 
 import leematod.pulse.R;
 import leematod.pulse.ui.ColorPalette;
-import leematod.pulse.ui.Styleable;
-import leematod.pulse.ui.components.PrimaryTextView;
 import leematod.pulse.ui.components.Sidebar;
 import leematod.pulse.ui.layouts.Layout;
 
@@ -53,9 +53,14 @@ public class HomeLayout extends Layout {
     }
 
     protected ViewGroup withTitle(@NonNull ViewGroup view, @NonNull String name) {
-        TextView title = ensureId(new PrimaryTextView(this.getContext()));
+        TextView title = ensureId(new TextView(this.getContext()));
+        title.setTextSize(16);
+        title.setSingleLine();
+        title.setEllipsize(TextUtils.TruncateAt.END);
+        title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setText(name);
         title.setTextSize(TITLE_SIZE);
+        title.setTextColor(ColorPalette.current.text);
         title.setPaddingRelative(0, pixels(Sidebar.WIDTH / 4), 0, 0);
         view.addView(title, 0);
         return view;

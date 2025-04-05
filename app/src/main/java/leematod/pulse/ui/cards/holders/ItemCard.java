@@ -5,6 +5,8 @@ import static leematod.pulse.Utils.pixels;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,10 +19,10 @@ import com.google.android.material.shape.ShapeAppearanceModel;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import leematod.pulse.models.Item;
-import leematod.pulse.ui.components.PrimaryTextView;
-import leematod.pulse.ui.components.SecondaryTextView;
+import leematod.pulse.ui.ColorPalette;
+import leematod.pulse.ui.Styleable;
 
-public abstract class ItemCard extends RelativeLayout {
+public abstract class ItemCard extends RelativeLayout implements Styleable {
     public static final int VERTICAL_PADDING = 8;
     public static final int HORIZONTAL_PADDING = 8;
     public static final int THUMBNAIL_DIMENSIONS = 116;
@@ -37,8 +39,16 @@ public abstract class ItemCard extends RelativeLayout {
 
         this.setLayoutParams(this.layoutParams(new LayoutParams(-2, -2)));
 
-        this.name = ensureId(new PrimaryTextView(context));
-        this.subtitle = ensureId(new SecondaryTextView(context));
+        this.name = ensureId(new TextView(context));
+        this.name.setTextSize(16);
+        this.name.setSingleLine();
+        this.name.setEllipsize(TextUtils.TruncateAt.END);
+        this.name.setTypeface(Typeface.DEFAULT_BOLD);
+        this.subtitle = ensureId(new TextView(context));
+        this.subtitle.setTextSize(14);
+        this.subtitle.setSingleLine();
+        this.subtitle.setEllipsize(TextUtils.TruncateAt.END);
+        this.subtitle.setTypeface(Typeface.DEFAULT_BOLD);
         this.thumbnail = ensureId(new ShapeableImageView(context));
         // It doesn't really matter what color we use, because we just need it for the shimmer
         this.thumbnail.setBackgroundColor(Color.BLACK);
@@ -55,6 +65,15 @@ public abstract class ItemCard extends RelativeLayout {
                 this.thumbnailParams(
                         new LayoutParams(
                                 pixels(THUMBNAIL_DIMENSIONS), pixels(THUMBNAIL_DIMENSIONS))));
+        this.setPalette(ColorPalette.current);
+    }
+
+    @Override
+    public void setPalette(@NonNull ColorPalette palette) {
+        this.name.setTextColor(palette.text);
+        this.name.setBackgroundColor(palette.background);
+        this.subtitle.setTextColor(palette.textSecondary);
+        this.subtitle.setBackgroundColor(palette.background);
     }
 
     public void onClicked(@NonNull View view, @NonNull Item<?> item) {}
