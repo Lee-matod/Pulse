@@ -1,5 +1,7 @@
 package leematod.pulse.models;
 
+import static leematod.pulse.Utils.nullsafe;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -65,7 +67,11 @@ public class AlbumItem extends Item<NavigationEndpoint.Browse> {
     @NonNull
     public AlbumItem populate(@NonNull MusicResponsiveHeaderRenderer header) {
         this.year = header.subtitle.runs.get(header.subtitle.runs.size() - 1).text;
-        this.description = header.description.musicDescriptionShelfRenderer.description.getText();
+        this.description =
+                nullsafe(
+                        () ->
+                                header.description.musicDescriptionShelfRenderer.description
+                                        .getText());
         this.itemCount = header.secondSubtitle.runs.get(0).text;
         this.duration = header.secondSubtitle.runs.get(2).text;
 
@@ -80,8 +86,8 @@ public class AlbumItem extends Item<NavigationEndpoint.Browse> {
             Thumbnail artistThumbnail = null;
             if (header.straplineThumbnail != null) {
                 artistThumbnail =
-                        header.straplineThumbnail.musicThumbnailRenderer.thumbnail
-                                .thumbnails.get(0);
+                        header.straplineThumbnail.musicThumbnailRenderer.thumbnail.thumbnails.get(
+                                0);
             }
 
             this.artist =

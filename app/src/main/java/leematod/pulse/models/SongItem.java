@@ -18,13 +18,14 @@ public class SongItem extends Item<NavigationEndpoint.Watch> {
     public final @Nullable ArtistItem artist;
     public final @Nullable AlbumItem album;
     public final @Nullable String duration;
+    public final @Nullable String index;
 
     public SongItem(
             @NonNull String name,
             @Nullable Thumbnail thumbnail,
             @Nullable NavigationEndpoint.Watch endpoint,
             @Nullable TrackingData.ClickTrackingParams clickTrackingParams) {
-        this(name, thumbnail, endpoint, clickTrackingParams, "", null, null, null);
+        this(name, thumbnail, endpoint, clickTrackingParams, "", null, null, null, null);
     }
 
     public SongItem(
@@ -35,12 +36,14 @@ public class SongItem extends Item<NavigationEndpoint.Watch> {
             @NonNull String metadata,
             @Nullable ArtistItem artist,
             @Nullable AlbumItem album,
-            @Nullable String duration) {
+            @Nullable String duration,
+            @Nullable String index) {
         super(name, thumbnail, endpoint, clickTrackingParams);
         this.metadata = metadata;
         this.artist = artist;
         this.album = album;
         this.duration = duration;
+        this.index = index;
     }
 
     @NonNull
@@ -53,6 +56,11 @@ public class SongItem extends Item<NavigationEndpoint.Watch> {
         AlbumItem album = null;
         NavigationEndpoint.Watch endpoint = null;
         String duration = null;
+        String index = null;
+
+        if (renderer.index != null) {
+            index = renderer.index.getText();
+        }
 
         Thumbnail thumbnail;
         try {
@@ -115,7 +123,15 @@ public class SongItem extends Item<NavigationEndpoint.Watch> {
         }
 
         return new SongItem(
-                name, thumbnail, endpoint, trackingParams, metadata, artist, album, duration);
+                name,
+                thumbnail,
+                endpoint,
+                trackingParams,
+                metadata,
+                artist,
+                album,
+                duration,
+                index);
     }
 
     @Nullable
